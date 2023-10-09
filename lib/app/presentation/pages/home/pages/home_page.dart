@@ -14,6 +14,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _counter = 0;
 
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  void init() async {
+    await Provider.of<HomeController>(context, listen: false).getTaskList();
+  }
+
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -22,8 +32,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController homeController = Provider.of(context, listen: false);
-    Provider.of<HomeController>(context, listen: false).getTaskList();
+    final HomeController homeController = Provider.of(context);
 
     return Scaffold(
       appBar: AppBar(
