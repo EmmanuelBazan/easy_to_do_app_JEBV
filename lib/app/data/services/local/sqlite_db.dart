@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_to_do_app/app/domain/models/task_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -52,5 +53,11 @@ class SqliteDB {
         ''');
       },
     );
+  }
+
+  Future<List<TaskModel>> getAllTasks(Database db) async {
+    final res = await db.query('Tasks');
+
+    return res.isNotEmpty ? res.map((e) => TaskModel.fromMap(e)).toList() : [];
   }
 }

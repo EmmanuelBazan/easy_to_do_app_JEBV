@@ -1,39 +1,17 @@
+import 'package:easy_to_do_app/app/data/services/local/sqlite_db.dart';
 import 'package:easy_to_do_app/app/domain/models/task_model.dart';
 import 'package:easy_to_do_app/app/domain/repositories/task_repository.dart';
 
 class TaskRepositoryImpl implements TaskRepository {
+  final SqliteDB sqliteDB;
+
+  TaskRepositoryImpl(this.sqliteDB);
+
   @override
-  Future<List<TaskModel>> getTaskList() {
-    final task = TaskModel(
-      id: 1,
-      title: 'titulo tarea 1',
-      description: 'descripcion 1',
-      done: false,
-      priority: 'alta',
-      creationDate: '13/13/13',
-      images: null,
-    );
+  Future<List<TaskModel>> getTaskList() async {
+    final db = await sqliteDB.getDB;
+    final res = await sqliteDB.getAllTasks(db);
 
-    final task2 = TaskModel(
-      id: 1,
-      title: 'titulo tarea 1',
-      description: 'descripcion 1',
-      done: false,
-      priority: 'alta',
-      creationDate: '13/13/13',
-      images: null,
-    );
-
-    final task3 = TaskModel(
-      id: 1,
-      title: 'titulo tarea 1',
-      description: 'descripcion 1',
-      done: false,
-      priority: 'alta',
-      creationDate: '13/13/13',
-      images: null,
-    );
-
-    return Future.value([task, task2, task3]);
+    return res;
   }
 }
