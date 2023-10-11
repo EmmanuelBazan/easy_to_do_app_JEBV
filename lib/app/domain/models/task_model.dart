@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class TaskModel {
-  int id;
+  int? id;
   String title;
   String description;
   bool done;
@@ -27,20 +27,21 @@ class TaskModel {
         id: json["id"],
         title: json["title"],
         description: json["description"],
-        done: json["done"],
+        done: json["done"] == 1 ? true : false,
         priority: json["priority"],
         creationDate: json["creationDate"],
-        images: Images.fromMap(json["images"]),
+        // images: Images.fromMap(json["images"]),
+        images: null,
       );
 
   Map<String, dynamic> toMap() => {
         "id": id,
         "title": title,
         "description": description,
-        "done": done,
+        "done": done ? 1 : 0,
         "priority": priority,
         "creationDate": creationDate,
-        "images": images != null ? images!.toMap() : null,
+        // "images": images != null ? images!.toMap() : null,
       };
 }
 

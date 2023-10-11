@@ -60,4 +60,14 @@ class SqliteDB {
 
     return res.isNotEmpty ? res.map((e) => TaskModel.fromMap(e)).toList() : [];
   }
+
+  Future<bool> createTask(Database db, TaskModel task) async {
+    try {
+      final res = db.insert('Tasks', task.toMap());
+      return true;
+    } catch (e) {
+      print('ERROR INSER TASK: $e');
+      return false;
+    }
+  }
 }

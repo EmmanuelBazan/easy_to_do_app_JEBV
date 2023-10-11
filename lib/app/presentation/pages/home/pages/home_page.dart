@@ -36,9 +36,6 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'Sin tareas por el momento',
-            ),
             ListView.separated(
               shrinkWrap: true,
               itemBuilder: (_, index) =>
