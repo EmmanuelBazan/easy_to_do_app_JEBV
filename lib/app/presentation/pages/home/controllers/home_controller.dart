@@ -18,4 +18,6 @@ class HomeController extends ChangeNotifier {
     taskList.add(task);
     notifyListeners();
   }
+
+  checkTask(bool done) async {}
 }

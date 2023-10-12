@@ -34,12 +34,17 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             ListView.separated(
               shrinkWrap: true,
-              itemBuilder: (_, index) =>
-                  Text(homeController.taskList[index].title),
+              itemBuilder: (_, index) {
+                final currentTask = homeController.taskList[index];
+                return TaskCard(
+                  title: currentTask.title,
+                  done: currentTask.done,
+                );
+              },
               separatorBuilder: (_, __) => Container(),
               itemCount: homeController.taskList.length,
             )
@@ -53,6 +58,36 @@ class _HomePageState extends State<HomePage> {
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class TaskCard extends StatelessWidget {
+  final String title;
+  final bool done;
+
+  const TaskCard({
+    super.key,
+    required this.title,
+    required this.done,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.white,
+      child: Container(
+        padding: const EdgeInsets.only(left: 15),
+        alignment: Alignment.centerLeft,
+        height: 40,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(title),
+            Switch(value: done, onChanged: (value) {}),
+          ],
+        ),
+      ),
     );
   }
 }
