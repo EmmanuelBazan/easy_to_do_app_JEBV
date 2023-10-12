@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:easy_to_do_app/app/domain/models/task_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
 
 class SqliteDB {
@@ -61,13 +62,14 @@ class SqliteDB {
     return res.isNotEmpty ? res.map((e) => TaskModel.fromMap(e)).toList() : [];
   }
 
-  Future<bool> createTask(Database db, TaskModel task) async {
+  Future<TaskModel?> createTask(Database db, TaskModel task) async {
     try {
-      final res = db.insert('Tasks', task.toMap());
-      return true;
+      final res = await db.insert('Tasks', task.toMap());
+      task.id = res;
+      return task;
     } catch (e) {
       print('ERROR INSER TASK: $e');
-      return false;
+      return null;
     }
   }
 }

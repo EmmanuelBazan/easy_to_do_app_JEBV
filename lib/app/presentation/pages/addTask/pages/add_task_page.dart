@@ -1,7 +1,7 @@
 import 'package:easy_to_do_app/app/data/repositories_implementations/task_repository_impl.dart';
 import 'package:easy_to_do_app/app/data/services/local/sqlite_db.dart';
-import 'package:easy_to_do_app/app/presentation/navigation/routes.dart';
 import 'package:easy_to_do_app/app/presentation/pages/addTask/controllers/add_task_controller.dart';
+import 'package:easy_to_do_app/app/presentation/pages/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -44,6 +44,7 @@ class _Body extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: const InputDecoration(
                   label: Text('Titulo'),
                 ),
@@ -68,8 +69,12 @@ class _Body extends StatelessWidget {
         onPressed: () async {
           if (controller.validateForm()) {
             final res = await controller.createTask();
-            if (res) {
-              Navigator.pushNamed(context, Routes.homePage);
+            if (res != null) {
+              if (controller.mounted) {
+                Navigator.pop(context);
+                await Provider.of<HomeController>(context, listen: false)
+                    .addTask(res);
+              }
             }
           } else {
             print('FORMULARIO INCORRECTO');

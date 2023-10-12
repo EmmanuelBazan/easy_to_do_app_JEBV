@@ -11,7 +11,11 @@ class HomeController extends ChangeNotifier {
 
   Future<void> getTaskList() async {
     taskList = await taskRepository.getTaskList();
-    print('TASK LIST: ${taskList[0].title}');
+    notifyListeners();
+  }
+
+  addTask(TaskModel task) async {
+    taskList.add(task);
     notifyListeners();
   }
 }

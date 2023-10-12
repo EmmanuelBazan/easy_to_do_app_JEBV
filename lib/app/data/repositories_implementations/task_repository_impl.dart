@@ -16,7 +16,7 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<bool> createTask(TaskModel task) async {
+  Future<TaskModel?> createTask(TaskModel task) async {
     final db = await sqliteDB.getDB;
     final res = await sqliteDB.createTask(db, task);
 

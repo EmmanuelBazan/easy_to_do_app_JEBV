@@ -11,10 +11,12 @@ class AddTaskController extends ChangeNotifier {
   String descriptionInput = '';
 
   bool _isLoading = false;
+  bool _mounted = true;
 
   AddTaskController(this.taskRepository);
 
   bool get isLoading => _isLoading;
+  bool get mounted => _mounted;
 
   set isLoading(bool value) {
     _isLoading = value;
@@ -22,11 +24,10 @@ class AddTaskController extends ChangeNotifier {
   }
 
   bool validateForm() {
-    print('INPUTS: $titleInput $descriptionInput');
     return formKey.currentState?.validate() ?? false;
   }
 
-  Future<bool> createTask() async {
+  Future<TaskModel?> createTask() async {
     final task = TaskModel(
       id: null,
       title: titleInput,
@@ -40,5 +41,11 @@ class AddTaskController extends ChangeNotifier {
     final res = await taskRepository.createTask(task);
 
     return res;
+  }
+
+  @override
+  void dispose() {
+    _mounted = false;
+    super.dispose();
   }
 }
