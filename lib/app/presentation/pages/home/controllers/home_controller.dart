@@ -19,5 +19,8 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  checkTask(bool done) async {}
+  Future<TaskModel?> checkTask(TaskModel task) async {
+    final res = taskRepository.checkTask(task);
+    return res;
+  }
 }

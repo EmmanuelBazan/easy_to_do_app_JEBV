@@ -1,5 +1,6 @@
 import 'package:easy_to_do_app/app/presentation/navigation/routes.dart';
 import 'package:easy_to_do_app/app/presentation/pages/home/controllers/home_controller.dart';
+import 'package:easy_to_do_app/app/presentation/pages/home/widgets/task_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -41,8 +42,8 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (_, index) {
                 final currentTask = homeController.taskList[index];
                 return TaskCard(
-                  title: currentTask.title,
-                  done: currentTask.done,
+                  task: currentTask,
+                  check: homeController.checkTask,
                 );
               },
               separatorBuilder: (_, __) => Container(),
@@ -58,36 +59,6 @@ class _HomePageState extends State<HomePage> {
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
-
-class TaskCard extends StatelessWidget {
-  final String title;
-  final bool done;
-
-  const TaskCard({
-    super.key,
-    required this.title,
-    required this.done,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white,
-      child: Container(
-        padding: const EdgeInsets.only(left: 15),
-        alignment: Alignment.centerLeft,
-        height: 40,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(title),
-            Switch(value: done, onChanged: (value) {}),
-          ],
-        ),
-      ),
     );
   }
 }

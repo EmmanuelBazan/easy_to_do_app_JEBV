@@ -22,4 +22,12 @@ class TaskRepositoryImpl implements TaskRepository {
 
     return res;
   }
+
+  @override
+  Future<TaskModel?> checkTask(TaskModel task) async {
+    final db = await sqliteDB.getDB;
+    final res = await sqliteDB.updateTask(db, task);
+
+    return res;
+  }
 }

@@ -72,4 +72,15 @@ class SqliteDB {
       return null;
     }
   }
+
+  Future<TaskModel?> updateTask(Database db, TaskModel task) async {
+    try {
+      await db.update('Tasks', {'done': task.done ? 1 : 0},
+          where: 'id = ?', whereArgs: [task.id]);
+      return task;
+    } catch (e) {
+      print('ERROR UPDATE TASK: $e');
+      return null;
+    }
+  }
 }
