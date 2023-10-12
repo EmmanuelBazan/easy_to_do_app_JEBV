@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
               },
               separatorBuilder: (_, __) => Container(),
               itemCount: homeController.taskList.length,
-            )
+            ),
           ],
         ),
       ),
