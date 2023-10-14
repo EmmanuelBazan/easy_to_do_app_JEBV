@@ -61,7 +61,12 @@ class _Body extends StatelessWidget {
                 ),
                 onChanged: (value) => controller.descriptionInput = value,
               ),
-              const Text('Programar')
+              const Text('Programar'),
+              TextButton(
+                  onPressed: () async {
+                    await controller.selectCurrentDate(context);
+                  },
+                  child: Text(controller.dateInput))
             ],
           ),
         ),
