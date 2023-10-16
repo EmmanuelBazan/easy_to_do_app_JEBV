@@ -42,6 +42,8 @@ class _Body extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -61,12 +63,7 @@ class _Body extends StatelessWidget {
                 ),
                 onChanged: (value) => controller.descriptionInput = value,
               ),
-              const Text('Programar'),
-              TextButton(
-                  onPressed: () async {
-                    await controller.selectCurrentDate(context);
-                  },
-                  child: Text(controller.dateInput))
+              _scheduleSection(controller, context),
             ],
           ),
         ),
@@ -88,6 +85,29 @@ class _Body extends StatelessWidget {
         },
         child: const Icon(Icons.save),
       ),
+    );
+  }
+
+  Column _scheduleSection(AddTaskController controller, BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Programar'),
+        // RadioListTile(
+        //   value: 1,
+        //   groupValue: 1,
+        //   onChanged: (value) {},
+        //   title: const Text('Tarea diaria'),
+        // ),
+        TextButton(
+          onPressed: () async {
+            await controller.selectCurrentDate(context);
+          },
+          child: Text(controller.dateInput),
+        )
+      ],
     );
   }
 }
