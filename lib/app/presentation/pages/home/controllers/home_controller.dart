@@ -1,6 +1,7 @@
 import 'package:easy_to_do_app/app/domain/models/task_model.dart';
 import 'package:easy_to_do_app/app/domain/repositories/task_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class HomeController extends ChangeNotifier {
   final TaskRepository taskRepository;
@@ -9,9 +10,26 @@ class HomeController extends ChangeNotifier {
 
   bool _mounted = true;
 
+  String dateDisplay = '';
+
+  DateTime _selectedDate = DateTime.now();
+
   get mounted => _mounted;
 
-  HomeController(this.taskRepository);
+  HomeController(this.taskRepository) {
+    init();
+  }
+
+  void init() {
+    _setCurrentDate(_selectedDate);
+  }
+
+  void _setCurrentDate(DateTime now) {
+    var formatter = DateFormat('dd/MM/yyyy');
+    String formattedDate = formatter.format(now);
+    dateDisplay = formattedDate;
+    notifyListeners();
+  }
 
   Future<void> getTaskList() async {
     taskList = await taskRepository.getTaskList();

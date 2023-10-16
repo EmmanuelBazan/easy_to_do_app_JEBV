@@ -32,6 +32,20 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        actions: [
+          Row(
+            children: [
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.arrow_left_outlined)),
+              TextButton(
+                  onPressed: () {}, child: Text(homeController.dateDisplay)),
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.arrow_right_outlined)),
+            ],
+          )
+        ],
       ),
       body: Center(
         child: Column(
