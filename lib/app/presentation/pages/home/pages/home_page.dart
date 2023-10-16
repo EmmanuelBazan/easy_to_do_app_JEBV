@@ -36,12 +36,16 @@ class _HomePageState extends State<HomePage> {
           Row(
             children: [
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    homeController.substractOneDay();
+                  },
                   icon: const Icon(Icons.arrow_left_outlined)),
               TextButton(
                   onPressed: () {}, child: Text(homeController.dateDisplay)),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    homeController.addOneDay();
+                  },
                   icon: const Icon(Icons.arrow_right_outlined)),
             ],
           )

@@ -20,6 +20,8 @@ class AddTaskController extends ChangeNotifier {
 
   DateTime _selectedDate = DateTime.now();
 
+  final _formatter = DateFormat('dd/MM/yyyy');
+
   AddTaskController(this.taskRepository) {
     init();
   }
@@ -29,8 +31,7 @@ class AddTaskController extends ChangeNotifier {
   }
 
   void _setCurrentDate(DateTime now) {
-    var formatter = DateFormat('dd/MM/yyyy');
-    String formattedDate = formatter.format(now);
+    String formattedDate = _formatter.format(now);
     dateInput = formattedDate;
     notifyListeners();
   }

@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 class HomeController extends ChangeNotifier {
   final TaskRepository taskRepository;
+  final _formatter = DateFormat('dd/MM/yyyy');
 
   List<TaskModel> taskList = [];
 
@@ -25,15 +26,13 @@ class HomeController extends ChangeNotifier {
   }
 
   void _setCurrentDate(DateTime now) {
-    var formatter = DateFormat('dd/MM/yyyy');
-    String formattedDate = formatter.format(now);
+    String formattedDate = _formatter.format(now);
     dateDisplay = formattedDate;
     notifyListeners();
   }
 
   Future<void> getTaskList() async {
-    var formatter = DateFormat('dd/MM/yyyy');
-    String formattedDate = formatter.format(_selectedDate);
+    String formattedDate = _formatter.format(_selectedDate);
 
     taskList = await taskRepository.getTaskByDate(formattedDate);
     notifyListeners();
@@ -57,6 +56,18 @@ class HomeController extends ChangeNotifier {
       taskList.removeAt(index);
       notifyListeners();
     } else {}
+  }
+
+  substractOneDay() async {
+    _selectedDate = _selectedDate.subtract(const Duration(days: 1));
+    dateDisplay = _formatter.format(_selectedDate);
+    await getTaskList();
+  }
+
+  addOneDay() async {
+    _selectedDate = _selectedDate.add(const Duration(days: 1));
+    dateDisplay = _formatter.format(_selectedDate);
+    await getTaskList();
   }
 
   @override
