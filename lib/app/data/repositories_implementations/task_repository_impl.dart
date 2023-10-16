@@ -30,4 +30,12 @@ class TaskRepositoryImpl implements TaskRepository {
 
     return res;
   }
+
+  @override
+  Future<int?> deleteTask(int taskId) async {
+    final db = await sqliteDB.getDB;
+    final res = await sqliteDB.deleteTask(db, taskId);
+
+    return res;
+  }
 }

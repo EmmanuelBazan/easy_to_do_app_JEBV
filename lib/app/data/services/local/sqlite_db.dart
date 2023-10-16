@@ -83,4 +83,15 @@ class SqliteDB {
       return null;
     }
   }
+
+  Future<int?> deleteTask(Database db, int taskId) async {
+    try {
+      final res =
+          await db.delete('Tasks', where: 'id = ?', whereArgs: [taskId]);
+      return res;
+    } catch (e) {
+      print('ERROR DELETE TASK: $e');
+      return null;
+    }
+  }
 }

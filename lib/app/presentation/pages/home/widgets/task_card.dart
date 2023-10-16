@@ -1,5 +1,7 @@
 import 'package:easy_to_do_app/app/domain/models/task_model.dart';
+import 'package:easy_to_do_app/app/presentation/pages/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 typedef CheckFuntion = Future<TaskModel?> Function(TaskModel);
 
@@ -76,6 +78,8 @@ class PreviewTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController controller = Provider.of(context);
+
     return AlertDialog(
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -86,7 +90,13 @@ class PreviewTask extends StatelessWidget {
           Text(task.priority),
           Text(task.images != null ? '(imagenes)' : 'sin imagenes'),
           TextButton(
-              onPressed: () {},
+              onPressed: () async {
+                await controller.deleteTask(task.id!);
+
+                if (controller.mounted) {
+                  Navigator.pop(context);
+                }
+              },
               child: const Text(
                 'Eliminar',
                 style: TextStyle(color: Colors.red),

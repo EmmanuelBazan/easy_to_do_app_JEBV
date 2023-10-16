@@ -7,6 +7,10 @@ class HomeController extends ChangeNotifier {
 
   List<TaskModel> taskList = [];
 
+  bool _mounted = true;
+
+  get mounted => _mounted;
+
   HomeController(this.taskRepository);
 
   Future<void> getTaskList() async {
@@ -22,5 +26,21 @@ class HomeController extends ChangeNotifier {
   Future<TaskModel?> checkTask(TaskModel task) async {
     final res = taskRepository.checkTask(task);
     return res;
+  }
+
+  Future<void> deleteTask(int taskId) async {
+    final res = await taskRepository.deleteTask(taskId);
+
+    if (res != null) {
+      final index = taskList.lastIndexWhere((element) => element.id == taskId);
+      taskList.removeAt(index);
+      notifyListeners();
+    } else {}
+  }
+
+  @override
+  void dispose() {
+    _mounted = false;
+    super.dispose();
   }
 }
