@@ -50,14 +50,12 @@ class _TaskCardState extends State<TaskCard> {
             children: [
               Text(widget.task.title),
               Switch(
-                  value: isDone,
+                  value: widget.task.done,
                   onChanged: (value) async {
                     widget.task.done = value;
                     final res = await widget.check(widget.task);
                     if (res != null) {
-                      setState(() {
-                        isDone = value;
-                      });
+                      setState(() {});
                     }
                   }),
             ],
