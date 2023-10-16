@@ -29,7 +29,7 @@ class AddTaskController extends ChangeNotifier {
   }
 
   void _setCurrentDate(DateTime now) {
-    var formatter = DateFormat('dd-MM-yyyy');
+    var formatter = DateFormat('dd/MM/yyyy');
     String formattedDate = formatter.format(now);
     dateInput = formattedDate;
     notifyListeners();

@@ -62,6 +62,13 @@ class SqliteDB {
     return res.isNotEmpty ? res.map((e) => TaskModel.fromMap(e)).toList() : [];
   }
 
+  Future<List<TaskModel>> getTasksByDate(Database db, String date) async {
+    final res =
+        await db.query('Tasks', where: 'creationDate = ?', whereArgs: [date]);
+
+    return res.isNotEmpty ? res.map((e) => TaskModel.fromMap(e)).toList() : [];
+  }
+
   Future<TaskModel?> createTask(Database db, TaskModel task) async {
     try {
       final res = await db.insert('Tasks', task.toMap());

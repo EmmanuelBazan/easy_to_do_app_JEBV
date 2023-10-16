@@ -38,4 +38,12 @@ class TaskRepositoryImpl implements TaskRepository {
 
     return res;
   }
+
+  @override
+  Future<List<TaskModel>> getTaskByDate(String date) async {
+    final db = await sqliteDB.getDB;
+    final res = await sqliteDB.getTasksByDate(db, date);
+
+    return res;
+  }
 }

@@ -32,7 +32,10 @@ class HomeController extends ChangeNotifier {
   }
 
   Future<void> getTaskList() async {
-    taskList = await taskRepository.getTaskList();
+    var formatter = DateFormat('dd/MM/yyyy');
+    String formattedDate = formatter.format(_selectedDate);
+
+    taskList = await taskRepository.getTaskByDate(formattedDate);
     notifyListeners();
   }
 
