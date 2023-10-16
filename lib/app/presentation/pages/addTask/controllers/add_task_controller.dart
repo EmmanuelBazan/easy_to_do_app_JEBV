@@ -51,7 +51,7 @@ class AddTaskController extends ChangeNotifier {
       description: descriptionInput,
       done: false,
       priority: '',
-      creationDate: '',
+      creationDate: dateInput,
       images: null,
     );
 
