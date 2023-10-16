@@ -34,19 +34,8 @@ class _TaskCardState extends State<TaskCard> {
       padding: const EdgeInsets.all(0),
       onPressed: () => showDialog(
           context: context,
-          builder: (context) => AlertDialog(
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(widget.task.title),
-                    Text(widget.task.description),
-                    Text(widget.task.creationDate),
-                    Text(widget.task.priority),
-                    Text(widget.task.images != null
-                        ? '(imagenes)'
-                        : 'sin imagenes'),
-                  ],
-                ),
+          builder: (context) => PreviewTask(
+                task: widget.task,
               )),
       child: Card(
         color: Colors.white,
@@ -72,6 +61,37 @@ class _TaskCardState extends State<TaskCard> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class PreviewTask extends StatelessWidget {
+  final TaskModel task;
+
+  const PreviewTask({
+    super.key,
+    required this.task,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(task.title),
+          Text(task.description),
+          Text(task.creationDate),
+          Text(task.priority),
+          Text(task.images != null ? '(imagenes)' : 'sin imagenes'),
+          TextButton(
+              onPressed: () {},
+              child: const Text(
+                'Eliminar',
+                style: TextStyle(color: Colors.red),
+              ))
+        ],
       ),
     );
   }
